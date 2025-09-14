@@ -22,6 +22,20 @@ function App() {
         setPages(Math.ceil(data.length / 10));
       });
   }, []);
+  useEffect(() => {
+    const newPages = Math.max(1, Math.ceil(state.length / 10));
+    if (newPages !== pages) {
+      const wasOnLastPage = currentPage === pages;
+      setPages(newPages);
+
+      if (wasOnLastPage) {
+        setCurrentPage(newPages);
+        setFirstPostID((newPages - 1) * 10 + 1);
+        setLastPostID(state.length);
+      }
+    }
+  }, [state.length, pages, currentPage]);
+
   return (
     <PostsContext.Provider
       value={{

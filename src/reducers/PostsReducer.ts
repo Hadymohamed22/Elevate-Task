@@ -11,9 +11,11 @@ export function PostsReducer(state: Post[] = [], action: ActionObject) {
       return [...state, action.payload];
     case Actions.FETCH_POSTS: {
       const merged: Post[] = [...state, ...action.payload];
-      return Array.from(
+      const unique = Array.from(
         new Map(merged.map((post) => [post.id, post])).values()
       );
+      unique.sort((a, b) => a.id - b.id);
+      return unique;
     }
     default:
       return state;

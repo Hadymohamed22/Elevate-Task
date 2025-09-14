@@ -16,8 +16,12 @@ import { CreatePostSchema } from "@/schemas/CreatePostSchema";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { Post } from "@/types/Posts";
+import { usePosts } from "@/hooks/usePosts";
+import { Actions } from "@/types/PostsReducerActions";
 
 const CreatePost = () => {
+  const { dispatch, posts } = usePosts();
   type createPostTypes = z.infer<typeof CreatePostSchema>;
   const {
     handleSubmit,
@@ -30,9 +34,39 @@ const CreatePost = () => {
     resolver: zodResolver(CreatePostSchema),
   });
 
-  const onSubmit: SubmitHandler<createPostTypes> = (data) => {
-    console.log(data);
-    reset();
+  const onSubmit: SubmitHandler<createPostTypes> = async (data) => {
+    const randomID = Math.random().toString(36).slice(2, 9);
+    const newId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
+    const reqBody: Post & { author: string } = {
+      userId: randomID,
+      id: newId,
+      title: data.title,
+      body: data.body,
+      author: data.author,
+    };
+    try {
+      const res: Response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        }
+      );
+      if (!res.ok) throw new Error("failed to add new post");
+      const data: Post = await res.json();
+      dispatch({ type: Actions.ADD_POST, payload: reqBody });
+      console.log(posts);
+      console.log(`A new post has been successfully created! : ${data.id}`);
+      reset();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(`can not create a new post : ${error.message}`);
+        reset();
+      }
+    }
   };
   return (
     <div className="create-post min-h-[82vh] bg-white/75 backdrop-blur-lg rounded-lg flex flex-col">

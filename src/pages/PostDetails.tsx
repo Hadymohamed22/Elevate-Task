@@ -28,8 +28,11 @@ const PostDetails = () => {
           {post?.title}
         </h1>
         <div className="author-date flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-          {/* write author and date static because API not provide it */}
-          <PostInfoBox text="Leanne Graham" icon="author" />
+          {/* write author and date static because API not provide it ( when create post from user will show author you choose) */}
+          <PostInfoBox
+            text={post?.author ? post.author : "Leanne Graham"}
+            icon="author"
+          />
           <PostInfoBox text="Sun, August 24th, 2025" icon="date" />
         </div>
       </div>
