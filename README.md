@@ -1,69 +1,36 @@
-# React + TypeScript + Vite
+# Elevate Frontend Advanced Bootcamp Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 What is the project about?
+This project is a **post-style application** built with **ReactJS**.  
+It fetches posts from the **JSONPlaceholder API** and displays them in a clean, responsive, and pixel-perfect UI based on the provided Figma design.  
 
-Currently, two official plugins are available:
+### Key Features:
+- Pixel-perfect UI following the Figma design  
+- Fetch and display posts dynamically  
+- Post details page with dynamic routing  
+- Form handling & validation with error messages  
+- Toast notifications for user feedback  
+- **Pagination feature** for easier navigation between posts  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ⚙️ How to install dependencies
+1. Clone the repository:
+   `git clone https://github.com/Hadymohamed22/Elevate-Task.git`
+2. Install the dependencies:
+   `npm install`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚙️ How to run the project locally
+1. Start the development server with:
+   `npm run dev`
+2. The app will be available at:
+   `http://localhost:5173/`
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Additional notes or improvements
+- The author and date in post details are static placeholders since the API does not provide them.
+- Pagination was added to improve user experience when browsing posts.
+- The project follows best practices for folder structure, naming conventions, and reusable components.
