@@ -4,6 +4,7 @@ import { PostsReducer } from "./reducers/PostsReducer";
 import { PostsContext } from "./context/PostsContext";
 import type { Post } from "./types/Posts";
 import { Actions } from "./types/PostsReducerActions";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [state, dispatch] = useReducer(PostsReducer, []);
@@ -51,6 +52,7 @@ function App() {
       }}
     >
       <MainRoutes />
+      <Toaster position="bottom-right" reverseOrder={false} />
     </PostsContext.Provider>
   );
 }

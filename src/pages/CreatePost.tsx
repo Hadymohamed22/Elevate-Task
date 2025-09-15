@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { Post } from "@/types/Posts";
 import { usePosts } from "@/hooks/usePosts";
 import { Actions } from "@/types/PostsReducerActions";
+import toast from "react-hot-toast";
 
 const CreatePost = () => {
   const { dispatch, posts } = usePosts();
@@ -35,6 +36,19 @@ const CreatePost = () => {
   });
 
   const onSubmit: SubmitHandler<createPostTypes> = async (data) => {
+    if (data.author == "" || data.title == "" || data.body == "") {
+      toast.error("Some Thing is Wrong", {
+        style: {
+          border: "2px solid #D00000",
+          padding: "16px",
+          color: "#D00000",
+          borderRadius: "10px",
+          background: "oklch(88.5% 0.062 18.334)",
+          textWrap: "nowrap",
+          width: "fit-content",
+        },
+      });
+    }
     const randomID = Math.random().toString(36).slice(2, 9);
     const newId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
     const reqBody: Post & { author: string } = {
@@ -58,6 +72,16 @@ const CreatePost = () => {
       if (!res.ok) throw new Error("failed to add new post");
       const data: Post = await res.json();
       dispatch({ type: Actions.ADD_POST, payload: reqBody });
+      toast.success("A new post has been successfully created!", {
+        style: {
+          padding: "16px",
+          color: "white",
+          borderRadius: "10px",
+          background: "#1A1A1A",
+          textWrap: "nowrap",
+          width: "fit-content",
+        },
+      });
       console.log(posts);
       console.log(`A new post has been successfully created! : ${data.id}`);
       reset();
